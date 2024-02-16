@@ -10,4 +10,6 @@
 
 - After Login, you can check all you tasks, Tasks assined to you by others.
 
-- You can mark them complete, Edit them. but you can only delete the task that is created by you.
+- You can mark them complete, Edit them, but you can only delete the task that is created by you.
+
+- After your work is done you can simply click on logout button. 

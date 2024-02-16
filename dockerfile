@@ -6,9 +6,10 @@ COPY requirements.txt /app
 
 RUN pip install -r requirements.txt
 
-COPY . /app
+COPY . .
 
 EXPOSE 8043
 
-CMD python ./app.py
+CMD ["python", "app.py"]
+
 

@@ -1,31 +1,16 @@
-import logging
 import hashlib
+from database import Session
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from models import Users, Tasks
+from logger import logger
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine, cast
+from sqlalchemy import cast
 from datetime import datetime
-from config import CONFIG
-
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
-file_handler = logging.FileHandler('log.txt')
-file_handler.setLevel(logging.INFO)
-
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-file_handler.setFormatter(formatter)
-
-logger.addHandler(file_handler)
 
 app_routes = Blueprint('app_routes', __name__)
 
-DATABASE_URL = CONFIG.SQLALCHEMY_DATABASE_URI
-engine = create_engine(DATABASE_URL)
-Session = sessionmaker(bind=engine)
+
 
 @app_routes.route('/register', methods=['POST'])
 def register():
@@ -46,6 +31,8 @@ def register():
     session.commit()
     logger.info('New user registered')
     return jsonify({"message": "User created successfully"}), 201
+
+
 
 @app_routes.route('/login', methods=['POST'])
 def login():
@@ -68,6 +55,8 @@ def login():
         logger.error('Login failed: Invalid username or password')
         return jsonify({"message": "Invalid username or password"}), 401
 
+
+
 @app_routes.route('/users', methods=['GET'])
 @jwt_required()
 def get_users():
@@ -88,7 +77,7 @@ def get_users():
     logger.info('Users retrieved')
     return jsonify(user_list), 200
 
-from sqlalchemy import or_
+
 
 @app_routes.route('/tasks', methods=['GET'])
 @jwt_required()
@@ -117,6 +106,7 @@ def get_tasks():
     return jsonify({"tasks": task_list}), 200
 
 
+
 @app_routes.route('/tasks', methods=['POST'])
 @jwt_required()
 def create_task():
@@ -132,6 +122,8 @@ def create_task():
     logger.info('New task created')
     return jsonify({"message": "Task created successfully"}), 201
 
+
+
 @app_routes.route('/tasks/<int:task_id>', methods=['PUT'])
 @jwt_required()
 def edit_task(task_id):
@@ -140,8 +132,8 @@ def edit_task(task_id):
     session = Session()
     task = session.query(Tasks).filter_by(id=task_id)
     task = task.filter(
-        (Tasks.user_id == current_user_id) |
-        (cast(Tasks.add_users, JSONB).contains([current_user_id]))
+    (Tasks.user_id == current_user_id) |
+    (cast(Tasks.add_users, JSONB).contains([str(current_user_id)]))
     ).first()
     if not task:
         logger.error('Task not found')
@@ -154,6 +146,8 @@ def edit_task(task_id):
     logger.info('Task updated successfully')
     return jsonify({"message": "Task updated successfully"}), 200
 
+
+
 @app_routes.route('/tasks/<int:task_id>', methods=['PATCH'])
 @jwt_required()
 def mark_completed(task_id):
@@ -162,8 +156,8 @@ def mark_completed(task_id):
     session = Session()
     task = session.query(Tasks).filter_by(id=task_id)
     task = task.filter(
-        (Tasks.user_id == current_user_id) |
-        (cast(Tasks.add_users, JSONB).contains([current_user_id]))
+    (Tasks.user_id == current_user_id) |
+    (cast(Tasks.add_users, JSONB).contains([str(current_user_id)]))
     ).first()
     if not task:
         logger.error('Task not found')
@@ -179,6 +173,8 @@ def mark_completed(task_id):
     session.commit()
     logger.info('Task status updated')
     return jsonify(data), 200
+
+
 
 @app_routes.route('/tasks/<int:task_id>', methods=['DELETE'])
 @jwt_required()

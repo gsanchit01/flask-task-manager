@@ -1,15 +1,19 @@
 # Flask Task Manager
 
-- Welcome to Task Manager Applicaiton writtin in flask by Sanchit Gupta.
+- Welcome to the Task Manager Application written in Flask by Sanchit Gupta.
 
-- On the First Landing Page you get options for Login and Register.
+- On the landing page, you'll find options for Login and Register.
 
-- If you are a new user kindly register for the application with Username, Email and Your Super Secret Password.
+- If you are a new user, kindly register for the application with your Username, Email, and your super-secret Password.
 
-- After Registeration, you will redirect to login Page, Please Login with the credentials you just created.
+- After registration, you will be redirected to the login page. Please login with the credentials you just created.
 
-- After Login, you can check all you tasks, Tasks assined to you by others.
+- After logging in, you can view all your tasks, as well as tasks assigned to you by others.
 
-- You can mark them complete, Edit them, but you can only delete the task that is created by you.
+- You can create new Task for yourself and also for other users from your dashboard.
 
-- After your work is done you can simply click on logout button. 
+- The tasks you create for others can be edited and marked as completed by them, but they cannot delete them.
+
+- You can mark your tasks as complete and edit them, but you can only delete the tasks that you have created.
+
+- Once your work is done, you can simply click on the logout button to log out from the application.

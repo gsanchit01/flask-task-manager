@@ -1,0 +1,225 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+header p {
+    font-size: 18px;
+    color: #666;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn.dark-mode {
+    background-color: #333;
+}
+
+section {
+    padding: 20px 0;
+}
+
+.task-item {
+    position: relative;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+.task-item .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #32CD32;
+}
+
+.task-item .task-name {
+    margin-left: 40px;
+    font-size: 18px;
+}
+
+.task-item .task-buttons {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.task-item .task-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.task-item .task-buttons button:hover {
+    color: #007bff;
+}
+
+.new-task-container {
+    margin-top: 20px;
+}
+
+.new-task-container input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    width: 200px;
+}
+
+.new-task-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.new-task-container button:hover {
+    background-color: #0056b3;
+}
+
+.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+.task-item .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #32CD32;
+}
+.task-item .checkmark.completed {
+    background-color: #fff;
+    text-align: center;
+    color: #32CD32;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.task-item .checkmark.completed::after {
+    content: '\2714';
+}
+
+#taskList {
+    list-style-type: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10% auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.modal-content {
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.modal-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-title {
+    margin: 0;
+}
+
+.modal-body {
+    padding-bottom: 10px;
+}
+
+.modal-footer {
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+/* Dropdown */
+.form-select {
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    width: 100%;
+}
+
+.form-select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.form-select:hover {
+    border-color: #b3b3b3;
+}
+
+.form-select:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+.form-select:active,
+.form-select:focus {
+    color: #495057;
+}

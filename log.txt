@@ -1,0 +1,98 @@
+2024-02-16 12:43:09,746 - INFO - Login endpoint called
+2024-02-16 12:43:14,053 - INFO - User logged in
+2024-02-16 12:43:14,150 - INFO - Get tasks endpoint called
+2024-02-16 12:43:14,151 - INFO - Current user ID: 4
+2024-02-16 12:43:16,022 - INFO - Tasks retrieved
+2024-02-16 12:43:24,842 - INFO - Delete task endpoint called
+2024-02-16 12:43:27,290 - INFO - Task deleted successfully
+2024-02-16 12:43:27,340 - INFO - Get tasks endpoint called
+2024-02-16 12:43:27,340 - INFO - Current user ID: 4
+2024-02-16 12:43:27,861 - INFO - Tasks retrieved
+2024-02-16 12:43:30,260 - INFO - Delete task endpoint called
+2024-02-16 12:43:32,655 - INFO - Task deleted successfully
+2024-02-16 12:43:32,711 - INFO - Get tasks endpoint called
+2024-02-16 12:43:32,711 - INFO - Current user ID: 4
+2024-02-16 12:43:33,496 - INFO - Tasks retrieved
+2024-02-16 12:43:42,077 - INFO - Delete task endpoint called
+2024-02-16 12:43:43,127 - INFO - Task deleted successfully
+2024-02-16 12:43:43,161 - INFO - Get tasks endpoint called
+2024-02-16 12:43:43,161 - INFO - Current user ID: 4
+2024-02-16 12:43:43,686 - INFO - Tasks retrieved
+2024-02-16 12:43:48,741 - INFO - Delete task endpoint called
+2024-02-16 12:43:50,671 - ERROR - User does not have permission to delete this task
+2024-02-16 12:43:55,515 - INFO - Delete task endpoint called
+2024-02-16 12:43:57,920 - ERROR - User does not have permission to delete this task
+2024-02-16 12:44:05,820 - INFO - Delete task endpoint called
+2024-02-16 12:44:06,344 - ERROR - User does not have permission to delete this task
+2024-02-16 12:44:16,124 - INFO - Get tasks endpoint called
+2024-02-16 12:44:16,125 - INFO - Current user ID: 4
+2024-02-16 12:44:16,642 - INFO - Tasks retrieved
+2024-02-16 12:44:20,858 - INFO - Delete task endpoint called
+2024-02-16 12:44:23,324 - INFO - Task deleted successfully
+2024-02-16 12:44:23,435 - INFO - Get tasks endpoint called
+2024-02-16 12:44:23,436 - INFO - Current user ID: 4
+2024-02-16 12:44:24,475 - INFO - Tasks retrieved
+2024-02-16 12:44:28,970 - INFO - Delete task endpoint called
+2024-02-16 12:44:29,494 - ERROR - User does not have permission to delete this task
+2024-02-16 12:45:57,492 - INFO - Get tasks endpoint called
+2024-02-16 12:45:57,492 - INFO - Current user ID: 4
+2024-02-16 12:45:58,011 - INFO - Tasks retrieved
+2024-02-16 12:46:01,639 - INFO - Delete task endpoint called
+2024-02-16 12:46:03,564 - ERROR - User does not have permission to delete this task
+2024-02-16 12:46:54,407 - INFO - Get tasks endpoint called
+2024-02-16 12:46:54,408 - INFO - Current user ID: 4
+2024-02-16 12:46:54,930 - INFO - Tasks retrieved
+2024-02-16 12:46:59,482 - INFO - Delete task endpoint called
+2024-02-16 12:47:00,493 - ERROR - User does not have permission to delete this task
+2024-02-16 12:47:22,894 - INFO - Get tasks endpoint called
+2024-02-16 12:47:22,896 - INFO - Current user ID: 4
+2024-02-16 12:47:23,414 - INFO - Tasks retrieved
+2024-02-16 12:47:30,171 - INFO - Delete task endpoint called
+2024-02-16 12:47:31,467 - ERROR - User does not have permission to delete this task
+2024-02-16 12:47:57,942 - INFO - Delete task endpoint called
+2024-02-16 12:47:58,465 - ERROR - User does not have permission to delete this task
+2024-02-16 12:48:24,561 - INFO - Get tasks endpoint called
+2024-02-16 12:48:24,561 - INFO - Current user ID: 4
+2024-02-16 12:48:25,074 - INFO - Tasks retrieved
+2024-02-16 12:48:44,510 - INFO - Delete task endpoint called
+2024-02-16 12:48:48,797 - ERROR - User does not have permission to delete this task
+2024-02-16 12:49:23,756 - INFO - Get tasks endpoint called
+2024-02-16 12:49:23,758 - INFO - Current user ID: 4
+2024-02-16 12:49:25,678 - INFO - Tasks retrieved
+2024-02-16 12:49:27,528 - INFO - Delete task endpoint called
+2024-02-16 12:49:29,431 - ERROR - User does not have permission to delete this task
+2024-02-16 12:51:40,678 - INFO - Get tasks endpoint called
+2024-02-16 12:51:40,679 - INFO - Current user ID: 4
+2024-02-16 12:51:41,205 - INFO - Tasks retrieved
+2024-02-16 12:51:45,006 - INFO - Delete task endpoint called
+2024-02-16 12:51:47,372 - INFO - Task deleted successfully
+2024-02-16 12:51:47,450 - INFO - Get tasks endpoint called
+2024-02-16 12:51:47,451 - INFO - Current user ID: 4
+2024-02-16 12:51:48,214 - INFO - Tasks retrieved
+2024-02-16 12:51:52,464 - INFO - Delete task endpoint called
+2024-02-16 12:51:53,517 - INFO - Task deleted successfully
+2024-02-16 12:51:53,612 - INFO - Get tasks endpoint called
+2024-02-16 12:51:53,612 - INFO - Current user ID: 4
+2024-02-16 12:51:54,136 - INFO - Tasks retrieved
+2024-02-16 12:51:56,749 - INFO - Get users endpoint called
+2024-02-16 12:51:58,861 - INFO - Users retrieved
+2024-02-16 12:52:05,786 - INFO - Create task endpoint called
+2024-02-16 12:52:06,571 - INFO - New task created
+2024-02-16 12:52:06,695 - INFO - Get tasks endpoint called
+2024-02-16 12:52:06,695 - INFO - Current user ID: 4
+2024-02-16 12:52:07,218 - INFO - Tasks retrieved
+2024-02-16 12:52:27,490 - INFO - Edit task endpoint called
+2024-02-16 12:52:28,553 - INFO - Task updated successfully
+2024-02-16 12:52:28,646 - INFO - Get tasks endpoint called
+2024-02-16 12:52:28,646 - INFO - Current user ID: 4
+2024-02-16 12:52:29,172 - INFO - Tasks retrieved
+2024-02-16 12:52:31,257 - INFO - Mark task completed endpoint called
+2024-02-16 12:52:32,299 - INFO - Task status updated
+2024-02-16 12:52:32,380 - INFO - Get tasks endpoint called
+2024-02-16 12:52:32,384 - INFO - Current user ID: 4
+2024-02-16 12:52:32,908 - INFO - Tasks retrieved
+2024-02-16 12:52:42,435 - INFO - Login endpoint called
+2024-02-16 12:52:44,706 - INFO - User logged in
+2024-02-16 12:52:44,856 - INFO - Get tasks endpoint called
+2024-02-16 12:52:44,856 - INFO - Current user ID: 5
+2024-02-16 12:52:45,381 - INFO - Tasks retrieved

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - Task Management Software</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='tasks.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1>Tasks</h1>
+            <div>
+                <button id="createTaskButton" type="button" class="btn btn-primary">Create New Task</button>
+                <button id="logoutButton" type="button" class="btn btn-danger">Logout</button>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            <ul id="taskList">
+
+            </ul>
+        </div>
+    </section>
+    <div id="createTaskModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createTaskForm">
+                        <label for="task">Task:</label>
+                        <br>
+                        <input type="text" id="taskName" name="taskName" placeholder="Task Name" required>
+                        <hr>
+                        <label for="addUsers">Add Users:</label>
+                        <select id="addUsers" name="addUsers[]" multiple class="form-select">
+
+                        </select>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="editTaskModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editTaskForm">
+                        <input type="text" id="editTaskName" name="editTaskName" placeholder="Task Name" required>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const taskList = document.getElementById('taskList');
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                alert("Unable to show page, please login again");
+                window.location.href = "/loginpage";
+            }
+
+            function createTaskItem(task) {
+                const taskItem = document.createElement('li');
+                taskItem.classList.add('task-item');
+                taskItem.dataset.id = task.id;
+                taskItem.innerHTML = `
+                    <span class="checkmark ${task.is_completed ? 'completed' : ''}" data-completed="${task.is_completed}"></span>
+                    <span class="task-name">${task.task}</span>
+                    <div class="task-buttons">
+                        <button class="edit-task"><img style="width: 20px;" src="../static/edit.svg" alt="Edit"></button>
+                        <button class="delete-task"><img style="width: 20px;" src="../static/delete.svg" alt="Edit"></button>
+                    </div>
+                `;
+                taskList.appendChild(taskItem);
+            }
+
+            fetchTasks();
+
+            function fetchTasks() {
+                fetch("/tasks", {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            throw new Error("Token expired");
+                        } else {
+                            throw new Error("Failed to fetch tasks");
+                        }
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const tasks = data.tasks;
+                    tasks.forEach(task => {
+                        createTaskItem(task);
+                    });
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    if (error.message === "Token expired") {
+                        alert("Your session has expired. Please login again.");
+                        window.location.href = "/loginpage";
+                    }
+                });
+            }
+
+            const createTaskButton = document.getElementById('createTaskButton');
+            createTaskButton.addEventListener('click', function() {
+                const createTaskModal = new bootstrap.Modal(document.getElementById('createTaskModal'));
+                createTaskModal.show();
+
+                fetchUsers();
+            });
+
+            function fetchUsers() {
+                fetch("/users", {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            throw new Error("Token expired");
+                        } else {
+                            throw new Error("Failed to fetch users");
+                        }
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const users = data;
+                    const addUsersSelect = document.getElementById('addUsers');
+
+                    addUsersSelect.innerHTML = '';
+
+                    users.forEach(user => {
+                        const option = document.createElement('option');
+                        option.value = user.id;
+                        option.textContent = user.username;
+                        addUsersSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    if (error.message === "Token expired") {
+                        alert("Your session has expired. Please login again.");
+                        window.location.href = "/loginpage";
+                    }
+                });
+            }
+
+            function editTask(taskId, taskName) {
+                const editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
+                const editTaskForm = document.getElementById('editTaskForm');
+                const editTaskInput = document.getElementById('editTaskName');
+                editTaskInput.value = taskName; 
+                editTaskModal.show();
+
+                editTaskForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const updatedTaskName = editTaskInput.value;
+
+                    const payload = {
+                        task: updatedTaskName
+                    };
+
+                    fetch(`/tasks/${taskId}`, {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            throw new Error("Failed to update task");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.message);
+                        alert("Failed to update task. Please try again.");
+                    });
+                });
+            }
+
+            function deleteTask(taskId) {
+                if (confirm("Are you sure you want to delete this task?")) {
+                    fetch(`/tasks/${taskId}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            throw new Error("Failed to delete task");
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error.message);
+                        alert("Failed to delete task. Please try again.");
+                    });
+                }
+            }
+
+            function toggleTaskCompletion(taskId, isCompleted) {
+                fetch(`/tasks/${taskId}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }})
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        throw new Error("Failed to update task completion status");
+                    }
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    alert("Failed to update task completion status. Please try again.");
+                });
+            }
+
+            taskList.addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.classList.contains('edit-task')) {
+                    const taskItem = target.closest('.task-item');
+                    const taskId = taskItem.dataset.id;
+                    const taskName = taskItem.querySelector('.task-name').textContent;
+                    editTask(taskId, taskName);
+                } else if (target.classList.contains('delete-task')) {
+                    const taskItem = target.closest('.task-item');
+                    const taskId = taskItem.dataset.id;
+                    deleteTask(taskId);
+                } else if (target.classList.contains('checkmark')) {
+                    const taskItem = target.closest('.task-item');
+                    const taskId = taskItem.dataset.id;
+                    const isCompleted = target.dataset.completed === 'true';
+                    toggleTaskCompletion(taskId, isCompleted);
+                }
+            });
+
+            const logoutButton = document.getElementById('logoutButton');
+            logoutButton.addEventListener('click', function() {
+                localStorage.removeItem('token'); 
+                window.location.href = "/loginpage"; 
+            });
+
+            const createTaskForm = document.getElementById('createTaskForm');
+            createTaskForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const taskName = document.getElementById('taskName').value;
+                const addUsersSelect = document.getElementById('addUsers');
+
+                const payload = {
+                    task: taskName,
+                    add_users: Array.from(addUsersSelect.selectedOptions, option => option.value)
+                };
+
+                fetch("/tasks", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        throw new Error("Failed to create task");
+                    }
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    alert("Failed to create task. Please try again.");
+                });
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

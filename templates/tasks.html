@@ -82,8 +82,8 @@
                     <span class="checkmark ${task.is_completed ? 'completed' : ''}" data-completed="${task.is_completed}"></span>
                     <span class="task-name">${task.task}</span>
                     <div class="task-buttons">
-                        <button class="edit-task"><img style="width: 20px;" src="../static/edit.svg" alt="Edit"></button>
-                        <button class="delete-task"><img style="width: 20px;" src="../static/delete.svg" alt="Edit"></button>
+                        <button class="edit-task"><img class="edit-task" style="width: 20px;" src="../static/edit.svg" alt="Edit"></button>
+                        <button class="delete-task"><img class="delete-task" style="width: 20px;" src="../static/delete.svg" alt="Edit"></button>
                     </div>
                 `;
                 taskList.appendChild(taskItem);

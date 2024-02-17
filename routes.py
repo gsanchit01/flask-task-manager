@@ -91,7 +91,6 @@ def get_tasks():
     (Tasks.user_id == current_user_id) |
     (cast(Tasks.add_users, JSONB).contains([str(current_user_id)]))
     ).all()
-    print(tasks)
     task_list = []
     for task in tasks:
         task_list.append({
